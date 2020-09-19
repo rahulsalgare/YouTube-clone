@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% block declare %}{% endblock %}
+    <title>YouTube</title>
+  </head>
+  <body>
+    <div class="container-fluid pl-0 pr-0">
+      <nav class="navbar fixed-top bg-light">
+      <a class="nav-item"href="#"><i class="fas fa-bars"></i></a>
+      <a class="navbar-brand mr-auto pl-4" href="{% url 'core:homeview' %}"><i class="fab fa-youtube"></i>
+        <span class="font-weight-bold">YouTube</span>
+      </a>
+        <form class="form-inline" style="padding-right:235px">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width:700px">
+            <button class="btn btn-outline-secondary border border-left-0" type="button">
+              <i class="fa fa-search"></i>
+            </button>
+        </form>
+
+        <ul class="nav justify-content-end">
+          <a class="nav-item" href=""><i class="fas fa-arrow-alt-circle-up"></i></a>
+          <a class="nav-item" href=""><i class="fas fa-th"></i></a>
+          <a class="nav-item"href=""><i class="fa fa-bell" style="font-size:20px;"></i></a>
+          <li class="nav-item dropdown">
+            {% if user.is_authenticated %}
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{user.userprofile.profile_pic.url}}" class="rounded-circle" style="height:25px;width:25px;padding-bottom:3px" alt="">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'core:profile' user.username %}">Profile</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'core:logout' %}">Logout</a>
+            </div>
+            {% else %}
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="http://127.0.0.1:8000/media/profilepic/default.png" class="rounded-circle" style="height:25px;padding-bottom:3px" alt="">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'core:login' %}">Login</a>
+            </div>
+            {% endif %}
+
+          </li>
+        </ul>
+        </nav>
+
+        <div class="row" style="">
+          <div class="col-sm-2" style="">
+              <div class="sidebar">
+             <div class="row" style="width:inherit;border-bottom:1px solid;border-bottom-color: #D1D8E0">
+              <ul class="list-group" style="width:inherit;padding-left:30px">
+                <a class="nav-link" href="{% url 'core:homeview' %}">
+                     <i class="fa fa-home" style="font-size:17px">
+                       <span class="font-weight-light pl-3">Home</span>
+                     </i>
+                </a>
+                <a class="nav-link" href="">
+                     <i class="fas fa-fire" style="font-size:17px"><span class="font-weight-light pl-3">Trending</span></i>
+                </a>
+                <a class="nav-link">
+                     <i class='fas fa-plus-circle' style="font-size:17px"><span class="font-weight-light pl-3">Subscriptions</span></i>
+                </a>
+                <br>
+
+              </ul>
+            </div>
+
+            <div class="row">
+              <ul class="list-group" style="padding-left:30px">
+                <a class="nav-link" href="">
+                     <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Library</span></i>
+                </a>
+                <a class="nav-link" href="">
+                     <i class='fas fa-history' style="font-size:17px"><span class="font-weight-light pl-3">History</span></i>
+                </a>
+                <a class="nav-link" href="">
+                     <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Your Videos</span></i>
+                </a>
+                <a class="nav-link" href="">
+                     <i class='fas fa-clock' style="font-size:17px"><span class="font-weight-light pl-3">Watch Later</span></i>
+                </a>
+                <a class="nav-link" href="">
+                     <i class='fas fa-thumbs-up' style="font-size:17px"><span class="font-weight-light pl-3">Liked Videos</span></i>
+                </a>
+              </ul>
+            </div>
+          </div>
+          </div>
+
+
+          <div class="col-sm-10" style="">
+            <div class="row">
+              <div class="card" style="width:100%">
+                <img class="card-img-top" src="{{user.userprofile.cover_pic.url}}" alt="Card image" style="height:200px">
+                <!-- <div class="card-img-overlay">
+                  <h4 class="card-title">John Doe</h4>
+                  <p class="card-text">Some example text.</p>
+                  <a href="#" class="btn btn-primary">See Profile</a>
+                </div> -->
+
+                <div class="card-body">
+                  <div class="row" style="">
+                      <div class="fst pt-2 pl-5">
+                        <img src="{{user.userprofile.profile_pic.url}}" class="rounded-circle" style="height:70px;width:70px" alt="">
+                     </div>
+                     <div class="sec pt-2 pl-3">
+                       <tr>
+                         <p class="font-weight-bold">{{user.userprofile.channel}}
+                         <br>
+                         <a href="#"><span class="font-weight-normal">{{video.video_owner}}</span></a>
+                         </p>
+                       </tr>
+                     </div>
+                     <div class="thir pt-3" style="width: 900px">
+                       <button id="uploadvideo" type="button" class="btn btn-primary" onclick="document.location.href={% url 'core:videoupload' %}"style="margin-left:700px">Upload Video</button>
+                     </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+            <div class="row pt-3">
+              <h3><small>Videos</small></h3>
+            </div>
+
+            <div class="row pt-3" style="">
+            {% for video in videos %}
+              <div class="card bg-light pl-3" style="width:300px;height:170px;border:none">
+              <a href=""><img class="card-img-top" src="{{video.thumbnail.url}}" alt="not found" style="height:185px"></a>
+                <div class="card-body">
+                  <div class="row" style="">
+                      <div class="fst pt-2 pl-3">
+                        <img src="" class="rounded-circle" style="height:45px" alt="">
+                     </div>
+                     <div class="sec pt-2 pl-3">
+                       <tr>
+                         <p class="font-weight-bold"><a href="">{{video.video_title}}</a>
+                         <br>
+                         <a href="#"><span class="font-weight-normal">{{video.video_owner}}</span></a>
+                         </p>
+                       </tr>
+                     </div>
+                 </div>
+               </div>
+              </div>
+              {% endfor %}
+            </div>
+
+          </div>
+
+        </div>
+
+    </div>
+  </body>
+
+<script>
+  // $('document').ready(function(){
+  //   $("#videoupload").click(function(){
+  //
+  //   })
+  // })
+</script>
+
+
+</html>

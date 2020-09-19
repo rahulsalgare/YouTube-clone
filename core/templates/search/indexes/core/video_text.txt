@@ -1,0 +1,3 @@
+{{ object.video_title }}
+{{object.video_owner}}
+{{object.video_description}}

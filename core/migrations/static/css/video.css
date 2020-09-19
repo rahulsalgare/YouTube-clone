@@ -1,0 +1,17 @@
+video{
+  padding-left: 40px;
+  padding-top: 80px;
+  width: 1000px;
+}
+.col-sm-8{
+  /* background: green; */
+  /* height:  */
+}
+.col-sm-4{
+  padding-top: 80px;
+  /* background: yellow; */
+}
+
+.card{
+  border: none;
+}

@@ -1,0 +1,167 @@
+{% extends 'core/base.html'%}
+{% load static %}
+
+{% block declare %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-sm-2" style="">
+    <div class="sidebar" style="position:fixed">
+   <div class="row" style="width:inherit;border-bottom:1px solid;border-bottom-color: #D1D8E0">
+    <ul class="list-group" style="width:inherit;padding-left:30px">
+      <a class="nav-link" href="{% url 'core:homeview' %}">
+           <i class="fa fa-home" style="font-size:17px">
+             <span class="font-weight-light pl-3">Home</span>
+           </i>
+      </a>
+      <a class="nav-link" href="">
+           <i class="fas fa-fire" style="font-size:17px"><span class="font-weight-light pl-3">Trending</span></i>
+      </a>
+      <a class="nav-link">
+           <i class='fas fa-plus-circle' style="font-size:17px"><span class="font-weight-light pl-3">Subscriptions</span></i>
+      </a>
+      <br>
+
+    </ul>
+  </div>
+
+  <div class="row">
+    <ul class="list-group" style="padding-left:30px">
+      <a class="nav-link" href="">
+           <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Library</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fas fa-history' style="font-size:17px"><span class="font-weight-light pl-3">History</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Your Videos</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fas fa-clock' style="font-size:17px"><span class="font-weight-light pl-3">Watch Later</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fas fa-thumbs-up' style="font-size:17px"><span class="font-weight-light pl-3">Liked Videos</span></i>
+      </a>
+    </ul>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+<!-- {% block content %} -->
+<div class="col-sm-10">
+  <div class="tags pt-1" style="height:45px">
+    <span class="badge badge-pill badge-secondary font-weight-normal" style="font-size:15px">All</span>
+    <span class="badge badge-pill badge-light border font-weight-normal" style="font-size:15px">Rock Music</span>
+    <span class="badge badge-pill badge-light border font-weight-normal" style="font-size:15px">Anime</span>
+    <span class="badge badge-pill badge-light border font-weight-normal" style="font-size:15px">Stock Market</span>
+    <span class="badge badge-pill badge-light border font-weight-normal" style="font-size:15px">Cooking</span>
+    <span class="badge badge-pill badge-light border font-weight-normal" style="font-size:15px">Martial Arts</span>
+    <span class="badge badge-pill badge-light border font-weight-normal" style="font-size:15px">Mixing and Mastering</span>
+  </div>
+
+  <!-- <div class="former">
+    <form action="." method="get">
+      {{form.as_p}}
+    </form>
+  </div> -->
+
+  {% if query %}
+  <h3>Results</h3>
+
+  <div class="container-fluid bg-4">
+      <div class="row">
+
+<!-- note this syntax -->
+          {% for result in page_obj.object_list %}
+            <div class="card" style="width:100%">
+                <div class="card-body">
+                  <div class="row">
+                  <div class="fst" style="background-color:blue;">
+                  <a href="{% url 'core:videoview' result.object.id }}"> <img class="" src="{{result.object.thumbnail.url}}" alt="Card image" style="height:170px;width:280px;"> </a>
+                  </div>
+                  <div class="col-sm-4" style="background-color:yellow;">
+                      <h5>{{result.video_title}}</h5>
+                  </div>
+                </div>
+            </div>
+
+          </div>
+      <!-- <div class="col-sm-4">
+        <div class="thumbnail">
+
+          <div class="form-group">
+              <p>First name : {{result.video_title}} </p>
+          </div>
+
+          <div class="form-group">
+              <p>Last name : {{result.video_owner}} </p>
+
+          </div>
+
+          <div class="form-group">
+              <p>Balance : {{result.video_description}} </p>
+          </div> -->
+          <!-- <div class="form-group">
+              <p>Email : {{result.email}} </p>
+          </div>
+          <div class="form-group">
+              <p>Status : {{result.customer_status}} </p>
+          </div> -->
+        <!-- </div>
+      </div> -->
+      {% empty %}
+
+         <p style="text-center">No results found.</p>
+          {% endfor%}
+      </div>
+  </div>
+  {% else %}
+  <div class="content">
+    <div class="row bg-light pt-3 pl-3">
+    {% for video in videos %}
+      <div class="card bg-light pl-3" style="width:310px;height:300px;border:none">
+      <a href="{% url 'core:videoview' video.id %}"><img class="card-img-top" src="{{video.thumbnail.url}}" alt="not found" style="height:185px"></a>
+        <div class="card-body">
+          <div class="row" style="">
+              <div class="fst pt-2 pl-3">
+                <img src="{{video.video_owner.channel_owner.profile_pic.url}}" class="rounded-circle" style="height:45px" alt="">
+             </div>
+             <div class="sec pt-2 pl-3">
+               <tr>
+                 <p class="font-weight-bold""><a href="{% url 'core:videoview' video.id %}" style="text-decoration:none;color:black">{{video.video_title|truncatechars:"25"}}</a>
+                 <br>
+                 <a href="#" style="text-decoration:none;color:black"><span class="font-weight-normal">{{video.video_owner}}</span></a>
+                 </p>
+               </tr>
+             </div>
+         </div>
+       </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+
+{% endif %}
+</div>
+<script>
+  $(document).ready(function(){
+    // $(document).ready(function() {
+    //   $(".list-group").css({
+    //     'width': ($(".col").width() + 'px')
+    //   });
+    // });
+
+    $(".nav-link").hover(function(){
+      $(this).css({'background-color':'#EBEDEF'});
+    });
+    $(".nav-link").mouseleave(function(){
+      $(this).css('background-color','');
+    });
+    $("#but1").click(function(){
+
+    });
+  });
+</script>
+<!-- {% endblock %} -->

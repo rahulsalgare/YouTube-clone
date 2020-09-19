@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block sidebar %}
+<div class="col-sm-2" style="">
+    <div class="sidebar">
+   <div class="row" style="width:inherit;border-bottom:1px solid;border-bottom-color: #D1D8E0">
+    <ul class="list-group" style="width:inherit;padding-left:30px">
+      <a class="nav-link" href="{% url 'core:homeview' %}">
+           <i class="fa fa-home" style="font-size:17px">
+             <span class="font-weight-light pl-3">Home</span>
+           </i>
+      </a>
+      <a class="nav-link" href="">
+           <i class="fas fa-fire" style="font-size:17px"><span class="font-weight-light pl-3">Trending</span></i>
+      </a>
+      <a class="nav-link">
+           <i class='fas fa-plus-circle' style="font-size:17px"><span class="font-weight-light pl-3">Subscriptions</span></i>
+      </a>
+      <br>
+
+    </ul>
+  </div>
+
+  <div class="row">
+    <ul class="list-group" style="padding-left:30px">
+      <a class="nav-link" href="">
+           <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Library</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fas fa-history' style="font-size:17px"><span class="font-weight-light pl-3">History</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Your Videos</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fas fa-clock' style="font-size:17px"><span class="font-weight-light pl-3">Watch Later</span></i>
+      </a>
+      <a class="nav-link" href="">
+           <i class='fas fa-thumbs-up' style="font-size:17px"><span class="font-weight-light pl-3">Liked Videos</span></i>
+      </a>
+    </ul>
+  </div>
+</div>
+</div>
+
+{% endblock %}
