@@ -88,29 +88,7 @@
             </div>
 
           </div>
-      <!-- <div class="col-sm-4">
-        <div class="thumbnail">
 
-          <div class="form-group">
-              <p>First name : {{result.video_title}} </p>
-          </div>
-
-          <div class="form-group">
-              <p>Last name : {{result.video_owner}} </p>
-
-          </div>
-
-          <div class="form-group">
-              <p>Balance : {{result.video_description}} </p>
-          </div> -->
-          <!-- <div class="form-group">
-              <p>Email : {{result.email}} </p>
-          </div>
-          <div class="form-group">
-              <p>Status : {{result.customer_status}} </p>
-          </div> -->
-        <!-- </div>
-      </div> -->
       {% empty %}
 
          <p style="text-center">No results found.</p>
@@ -122,7 +100,9 @@
     <div class="row bg-light pt-3 pl-3">
     {% for video in videos %}
       <div class="card bg-light pl-3" style="width:310px;height:300px;border:none">
-      <a href="{% url 'core:videoview' video.id %}"><img class="card-img-top" src="{{video.thumbnail.url}}" alt="not found" style="height:185px"></a>
+          <a href="{% url 'core:videoview' video.id %}">
+            <video class="videocard" src="{{video.video_file.url}}" poster="{{video.thumbnail.url}}" muted="muted" alt="not found" style="height:185px" preload>
+          </a>
         <div class="card-body">
           <div class="row" style="">
               <div class="fst pt-2 pl-3">
@@ -139,6 +119,7 @@
          </div>
        </div>
       </div>
+
     {% endfor %}
     </div>
   </div>
@@ -147,11 +128,17 @@
 </div>
 <script>
   $(document).ready(function(){
-    // $(document).ready(function() {
-    //   $(".list-group").css({
-    //     'width': ($(".col").width() + 'px')
-    //   });
-    // });
+
+    $(".videocard").on('mouseenter', function(event){
+        event.target.play();
+      });
+      
+    $(".videocard").on('mouseleave',function(event){
+      event.target.pause();
+      event.target.currentTime = 0;
+      event.target.load();
+    });
+
 
     $(".nav-link").hover(function(){
       $(this).css({'background-color':'#EBEDEF'});
