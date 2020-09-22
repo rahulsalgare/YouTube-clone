@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -17,6 +18,8 @@ class Video(models.Model):
     video_owner = models.ForeignKey(Channel, on_delete=models.CASCADE)
     video_file= models.FileField(upload_to='videos/', null=True)
     thumbnail = models.ImageField(upload_to='thumbnails/',null=True)
+
+    tags = TaggableManager()
 
     def __str__(self):
         return self.video_title
