@@ -16,10 +16,7 @@ from haystack.forms import SearchForm
 from haystack.generic_views import SearchView
 
 class HomeView(SearchView):
-    # def get(self, request):
-    #     form_class = SearchForm
-    #     videos = Video.objects.all()
-    #     return render(request, 'core/home.html', {'videos':videos})
+
     template_name = 'core/home.html'
     form_class = SearchForm
 
@@ -28,19 +25,6 @@ class HomeView(SearchView):
         context['videos'] = Video.objects.all()
         context.update(kwargs)
         return super().get_context_data(**context)
-
-    # def form_valid(self, form):
-    #     self.queryset = form.search()
-    #     context = self.get_context_data(
-    #         **{
-    #             self.form_name: form,
-    #             "query": form.cleaned_data.get(self.search_field),
-    #             "object_list": self.queryset,
-    #         }
-    #     )
-    #     print("context :",context)
-    #     return render(self.request,self.template_name,context)
-
 
 class VideoView(DetailView, FormView):
     template_name = 'core/video.html'

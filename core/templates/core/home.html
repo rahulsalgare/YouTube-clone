@@ -26,8 +26,9 @@
     </ul>
   </div>
 
-  <div class="row">
-    <ul class="list-group" style="padding-left:30px">
+  {% if user.is_authenticated %}
+  <div class="row" style="width:inherit;border-bottom:1px solid;border-bottom-color: #D1D8E0">
+    <ul class="list-group" style="width:inherit;padding-left:30px">
       <a class="nav-link" href="">
            <i class='fa fa-play-circle' style="font-size:17px"><span class="font-weight-light pl-3">Library</span></i>
       </a>
@@ -41,10 +42,23 @@
            <i class='fas fa-clock' style="font-size:17px"><span class="font-weight-light pl-3">Watch Later</span></i>
       </a>
       <a class="nav-link" href="">
-           <i class='fas fa-thumbs-up' style="font-size:17px"><span class="font-weight-light pl-3">Liked Videos</span></i>
+           <i class='fas fa-thumbs-up' style="font-size:17px"><span class="font-weigyht-light pl-3">Liked Videos</span></i>
       </a>
     </ul>
   </div>
+
+  <div class="row" style="width:inherit;border-bottom:1px solid;border-bottom-color: #D1D8E0">
+    <ul class="list-group" style="width:inherit;padding-left:30px">
+      <span class="pl-3"><h6>Subscriptions</h6></span>
+        {% for subscription in user.userprofile.subscribed_channels.all %}
+          <a class="nav-link" href="#">
+            {{subscription}}
+          </a>
+        {% endfor %}
+    </ul>
+  </div>
+
+  {% endif %}
 </div>
 </div>
 {% endblock %}
@@ -78,10 +92,12 @@
             <div class="card" style="width:100%">
                 <div class="card-body">
                   <div class="row">
-                  <div class="fst" style="background-color:blue;">
-                  <a href="{% url 'core:videoview' result.object.id }}"> <img class="" src="{{result.object.thumbnail.url}}" alt="Card image" style="height:170px;width:280px;"> </a>
+                  <div class="fst" style="">
+                  <a href="{% url 'core:videoview' result.object.id }}">
+                    <video class="videocard" src="{{result.object.video_file.url}}" poster="{{result.object.thumbnail.url}}" muted="muted" alt="Card image" style="height:170px;width:280px;">
+                  </a>
                   </div>
-                  <div class="col-sm-4" style="background-color:yellow;">
+                  <div class="col-sm-4" style="">
                       <h5>{{result.video_title}}</h5>
                   </div>
                 </div>
@@ -132,7 +148,7 @@
     $(".videocard").on('mouseenter', function(event){
         event.target.play();
       });
-      
+
     $(".videocard").on('mouseleave',function(event){
       event.target.pause();
       event.target.currentTime = 0;
