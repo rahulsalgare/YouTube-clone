@@ -22,7 +22,6 @@
         <span class="font-weight-bold" style="color:black">YouTube</span>
       </a>
         <form action="." method="get" class="form-inline" style="padding-right:235px">
-            <!-- {{ form.as_p }} -->
             <input name="q" class="form-control" type="text" placeholder="Search" aria-label="Search" style="width:700px">
             <button class="btn btn-outline-secondary border border-left-0" type="submit">
               <i class="fa fa-search"></i>
@@ -58,11 +57,11 @@
         </ul>
         </nav>
 
-        {% if query %}
+        <!-- {% if query %}
           {% for result in page.object_list %}
             <p>result.object.title</p>
           {% endfor %}
-        {% endif %}
+        {% endif %} -->
 
         {% block videoblock%}
         {% endblock %}

@@ -18,6 +18,11 @@
     <div class="detail">
       <div class="card pl-3">
         <div class="card-body">
+          <p>
+          {% for tag in object.tags.all%}
+          <a href="#" class="hashtag" style="text-decoration:none">#{{tag}}</a>
+          {% endfor %}
+          </p>
           <h4 class="card-title">{{object.video_title}}</h4>
           <p class="card-text" id="likes"></p>
           <a class="likebutton" id="like{{object.id}}" data-catid="{{ object.id }}" href="#"><i id="likeit" class="fas fa-thumbs-up"></i></a>
@@ -76,8 +81,7 @@
 
 <script>
   $("#video_player")[0].autoplay = true;
-</script>
-<script>
+
   $('document').ready(function(){
     console.log('hello');
     var likestatus = '{{likestatus}}';
@@ -129,6 +133,11 @@
 
     })
   }
+  });
+
+  $('.hashtag').click(function(event){
+    var lnk = "/?q=" + event.target.innerHTML.substr(1);
+    this.href = lnk;
   });
 
 });

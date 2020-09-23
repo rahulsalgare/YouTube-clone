@@ -6,8 +6,7 @@ class VideoIndex(indexes.SearchIndex, indexes.Indexable):
     video_description = indexes.CharField(model_attr='video_description')
     video_title = indexes.CharField(model_attr='video_title')
     video_owner = indexes.CharField(model_attr='video_owner')
-    # thumbnail = indexes.ImageField(model_attr='thumbnail')
-
+    
     def get_model(self):
         return Video
 

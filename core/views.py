@@ -33,8 +33,8 @@ class VideoView(DetailView, FormView):
     def get_object(self, **kwargs):
         return Video.objects.get(id=self.kwargs['id'])
 
-    def get_form_class(self):
-        return self.form_class
+    # def get_form_class(self):
+    #     return self.form_class
 
     def get_context_data(self, **kwargs):
         context = {}
