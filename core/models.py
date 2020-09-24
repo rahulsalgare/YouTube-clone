@@ -29,9 +29,11 @@ class UserProfile(models.Model):
     profile_pic = models.ImageField(default='profilepic/default.png', upload_to='profilepic/', null=True)
     cover_pic = models.ImageField(default='coverpic/default.jpg', upload_to='coverpic/',null=True)
     # liked_videos = models.ForeignKey('Video', null=True, on_delete=CASCADE)
-    liked_videos = models.ManyToManyField(Video, null=True)
+    liked_videos = models.ManyToManyField(Video, related_name = "user_liked_videos")
+    viewed_videos = models.ManyToManyField(Video, related_name = "user_viewed_videos")
     subscribed_channels = models.ManyToManyField(Channel, null=True)
     saved_playlists = models.ManyToManyField('Playlist')
+
 
     def __str__(self):
         return self.user.username

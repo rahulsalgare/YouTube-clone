@@ -40,11 +40,11 @@ class VideoView(DetailView, FormView):
         context = {}
         if self.object:
             context['object'] = self.object
-            context['likes'] = self.object.userprofile_set.count()          #likes count by ManyToManyField reverse reference
+            context['likes'] = self.object.user_liked_videos.count()          #likes count by ManyToManyField reverse reference
             context['comments']=self.object.comment_set.all()   #comments by ForeignKey reverse reference
-
+            context['views'] = self.object.user_viewed_videos.count()
             if self.request.user.is_authenticated:
-                if self.object.userprofile_set.filter(id=self.request.user.userprofile.id).exists():
+                if self.object.user_liked_videos.filter(id=self.request.user.userprofile.id).exists():
                     context['likestatus'] = True
                 else:
                     context['likestatus'] = False
@@ -105,7 +105,7 @@ def likevideo(request):
         vid = Video.objects.get(id=video_id)
         request.user.userprofile.liked_videos.add(vid)
         data = {
-            'likescount': vid.userprofile_set.count()
+            'likescount': vid.user_liked_videos.count()
         }
         return JsonResponse(data)
 
@@ -118,8 +118,20 @@ def unlikevideo(request):
         vid = Video.objects.get(id=video_id)
         request.user.userprofile.liked_videos.remove(vid)
         data = {
-            'likescount':vid.userprofile_set.count()
+            'likescount':vid.user_liked_videos.count()
         }
         return JsonResponse(data)
     else:
         return HttpResponse("no get")
+
+def countview(request):
+    if request.method == 'GET':
+        video_id = request.GET['video_id']
+        vid = Video.objects.get(id=video_id)
+        request.user.userprofile.viewed_videos.add(vid)
+        data={
+            'viewscount': vid.user_viewed_videos.count()
+        }
+        return JsonResponse(data)
+    else:
+        return HttpResponse("Not Get")

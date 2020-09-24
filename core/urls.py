@@ -13,5 +13,6 @@ urlpatterns = [
     path('logout',LogoutView.as_view(),name='logout'),
     path('register',register, name='register'),
     path('likevideo/', likevideo, name='likevideo'),
+    path('countview/', countview, name='countview'),
     path('unlikevideo',unlikevideo,name='unlikevideo'),
 ]

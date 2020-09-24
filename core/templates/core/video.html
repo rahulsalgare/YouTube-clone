@@ -24,7 +24,8 @@
           {% endfor %}
           </p>
           <h4 class="card-title">{{object.video_title}}</h4>
-          <p class="card-text" id="likes"></p>
+          <!-- <p class="card-text" id="likes"></p> -->
+          <p style="display:inline" id="views" data-videoid="{{ object.id }}">{{views}}</p>
           <a class="likebutton" id="like{{object.id}}" data-catid="{{ object.id }}" href="#"><i id="likeit" class="fas fa-thumbs-up"></i></a>
           <p style="display:inline" id="totallikes">{{likes}}</p>
         </div>
@@ -81,6 +82,38 @@
 
 <script>
   $("#video_player")[0].autoplay = true;
+
+  var startTime = new Date();
+
+  function reset(){
+    startTime = new Date();
+  }
+
+  $('#video_player')[0].addEventListener('play', reset);
+  $('#video_player')[0].addEventListener('pause',reset);
+  $('#video_player')[0].addEventListener('stop', reset);
+
+  $('#video_player')[0].addEventListener('timeupdate', (e) => {
+    let elapsedSeconds = (String(new Date() - startTime ) / 1000 );
+    console.log( `Video has been playing for ${elapsedSeconds} seconds` );
+    if ( elapsedSeconds > 30 ) {
+      console.log( 'Video has been playing for more than 30 seconds!' );
+      $.ajax(
+      {
+        type:"GET",
+        url: "/countview",
+        data:{
+          video_id:'{{object.id}}'
+        },
+        success:function(data)
+        {
+          console.log("successful");
+          document.getElementById("views").innerHTML = data.viewscount;
+        }
+    }
+  )
+ }
+  });
 
   $('document').ready(function(){
     console.log('hello');
